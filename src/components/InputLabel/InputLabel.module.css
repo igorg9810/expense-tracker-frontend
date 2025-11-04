@@ -1,0 +1,131 @@
+/* Base InputLabel Styles */
+.label {
+  display: inline-block;
+  font-family: inherit;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  user-select: none;
+}
+
+.label:focus-within {
+  color: #5832d8;
+}
+
+/* Sizes */
+.small {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.medium {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.large {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+/* Variants */
+.default {
+  color: #374151;
+}
+
+.required {
+  color: #374151;
+}
+
+.optional {
+  color: #6b7280;
+}
+
+/* Required Indicator */
+.requiredIndicator {
+  color: #dc2626;
+  margin-left: 2px;
+  font-weight: 600;
+}
+
+/* Optional Indicator */
+.optionalIndicator {
+  color: #9ca3af;
+  margin-left: 4px;
+  font-weight: 400;
+  font-size: 0.9em;
+}
+
+/* Disabled State */
+.disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.disabled:focus-within {
+  color: #9ca3af;
+}
+
+/* Hover State */
+.label:not(.disabled):hover {
+  color: #111827;
+}
+
+/* Focus State */
+.label:not(.disabled):focus-within {
+  color: #5832d8;
+}
+
+/* Required variant specific styling */
+.required:not(.disabled):focus-within {
+  color: #5832d8;
+}
+
+/* Optional variant specific styling */
+.optional:not(.disabled):focus-within {
+  color: #5832d8;
+}
+
+/* Text content styling */
+.text {
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (width <= 768px) {
+  .small {
+    font-size: 13px;
+  }
+
+  .medium {
+    font-size: 15px;
+  }
+
+  .large {
+    font-size: 17px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .label {
+    color: #000;
+  }
+
+  .disabled {
+    color: #666;
+  }
+
+  .requiredIndicator {
+    color: #c00;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .label {
+    transition: none;
+  }
+}

@@ -1,0 +1,225 @@
+/* Base Icon Styles */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.svg {
+  display: block;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Sizes */
+.size-small {
+  width: 16px;
+  height: 16px;
+}
+
+.size-medium {
+  width: 24px;
+  height: 24px;
+}
+
+.size-large {
+  width: 32px;
+  height: 32px;
+}
+
+.size-custom {
+  /* Custom size will be set via inline styles */
+}
+
+/* Colors */
+.color-default {
+  color: #6b7280;
+}
+
+.color-primary {
+  color: #5832d8;
+}
+
+.color-secondary {
+  color: #374151;
+}
+
+.color-error {
+  color: #dc2626;
+}
+
+.color-success {
+  color: #16a34a;
+}
+
+.color-warning {
+  color: #f59e0b;
+}
+
+/* Clickable state */
+.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.clickable:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.clickable:active {
+  transform: scale(0.95);
+}
+
+.clickable:focus {
+  outline: 2px solid #5832d8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Custom color support */
+.icon[style*='color'] .svg {
+  color: inherit;
+}
+
+/* Responsive adjustments */
+@media (width <= 768px) {
+  .size-small {
+    width: 14px;
+    height: 14px;
+  }
+
+  .size-medium {
+    width: 20px;
+    height: 20px;
+  }
+
+  .size-large {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .svg {
+    stroke-width: 2.5;
+  }
+
+  .color-default {
+    color: #000;
+  }
+
+  .color-primary {
+    color: #00f;
+  }
+
+  .color-error {
+    color: #f00;
+  }
+
+  .color-success {
+    color: #008000;
+  }
+
+  .color-warning {
+    color: #ff8c00;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .clickable {
+    transition: none;
+  }
+
+  .clickable:hover {
+    transform: none;
+  }
+
+  .clickable:active {
+    transform: none;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .color-default {
+    color: #9ca3af;
+  }
+
+  .color-secondary {
+    color: #d1d5db;
+  }
+}
+
+/* Focus visible for better accessibility */
+.icon:focus-visible {
+  outline: 2px solid #5832d8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Ensure proper alignment in different contexts */
+.icon.inline {
+  display: inline-flex;
+  vertical-align: text-bottom;
+}
+
+.icon.block {
+  display: flex;
+}
+
+/* Animation for loading states */
+.icon.loading .svg {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse animation for notifications */
+.icon.pulse .svg {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Bounce animation for interactive elements */
+.icon.bounce .svg {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}

@@ -1,0 +1,133 @@
+.loader-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 10%),
+    0 1px 2px 0 rgb(0 0 0 / 6%);
+  overflow: hidden;
+}
+
+.loader-header {
+  display: grid;
+  grid-template-columns: 48px 1fr 150px 120px 100px 48px;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.loader-header-cell {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.loader-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.loader-row {
+  display: grid;
+  grid-template-columns: 48px 1fr 150px 120px 100px 48px;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f3f4f6;
+  align-items: center;
+}
+
+.loader-row:last-child {
+  border-bottom: none;
+}
+
+.loader-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Checkbox Placeholder */
+.checkbox-placeholder {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* Avatar Placeholder */
+.avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* Text Placeholders */
+.text-placeholder {
+  height: 16px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.text-placeholder:last-child {
+  flex: 1;
+}
+
+.category-placeholder {
+  width: 80%;
+  max-width: 120px;
+}
+
+.date-placeholder {
+  width: 90%;
+  max-width: 100px;
+}
+
+.total-placeholder {
+  width: 60%;
+  max-width: 80px;
+}
+
+/* Action Icon */
+.action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.action-icon:hover {
+  opacity: 0.7;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive adjustments */
+@media (width <= 768px) {
+  .loader-header,
+  .loader-row {
+    grid-template-columns: 40px 1fr 120px 100px 80px 40px;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .loader-header-cell {
+    font-size: 12px;
+  }
+}
