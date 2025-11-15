@@ -23,9 +23,19 @@ export default {
     ],
   },
   globals: {
+    'import.meta': {
+      env: {
+        VITE_API_BASE_URL: 'http://localhost:3000',
+        MODE: 'test',
+        DEV: false,
+        PROD: false,
+        SSR: false,
+      },
+    },
     'ts-jest': {
       isolatedModules: true,
     },
+    __DEV__: true,
   },
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.(ts|tsx)',

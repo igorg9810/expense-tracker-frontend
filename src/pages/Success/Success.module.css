@@ -1,0 +1,168 @@
+/* Auth form layout */
+.authForm {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.successContainer {
+  text-align: center;
+  padding: 32px 0;
+}
+
+.successIcon {
+  font-size: 4rem;
+  margin-bottom: 24px;
+  display: block;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: var(--success-color, #10b981);
+  margin: 0 0 16px 0;
+}
+
+.message {
+  color: var(--text-color, #ffffff);
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.email {
+  color: var(--primary-color, #3b82f6);
+  margin: 0 0 16px 0;
+  font-size: 0.95rem;
+}
+
+.description {
+  color: var(--text-muted, #9ca3af);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Actions and buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.primaryButton {
+  background: var(--primary-color, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.primaryButton:hover {
+  background: var(--primary-hover, #2563eb);
+}
+
+.secondaryActions {
+  text-align: center;
+}
+
+.link {
+  color: var(--primary-color, #3b82f6);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--primary-hover, #2563eb);
+  text-decoration: underline;
+}
+
+/* Security tips section */
+.additionalInfo {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color, #4b5563);
+}
+
+.securityTips {
+  text-align: left;
+}
+
+.tipsTitle {
+  color: var(--text-color, #ffffff);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.tipsList {
+  color: var(--text-muted, #9ca3af);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tipsList li {
+  margin-bottom: 4px;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .authForm {
+    padding: 0 16px;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .message {
+    font-size: 0.95rem;
+  }
+  
+  .description {
+    font-size: 0.875rem;
+  }
+  
+  .successIcon {
+    font-size: 3.5rem;
+  }
+  
+  .additionalInfo {
+    margin-top: 24px;
+    padding-top: 16px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .placeholderIcon {
+    font-size: 3rem;
+  }
+}

@@ -1,0 +1,206 @@
+/* Auth form layout */
+.authForm {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-color, #ffffff);
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  color: var(--text-muted, #9ca3af);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.subtitle strong {
+  color: var(--primary-color, #3b82f6);
+}
+
+/* Form styles */
+.form {
+  width: 100%;
+}
+
+.inputGroup {
+  margin-bottom: 24px;
+}
+
+.errorMessage {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.fieldError {
+  color: #f87171;
+  font-size: 0.875rem;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.actions {
+  margin-bottom: 24px;
+}
+
+/* Code input styling */
+.codeInputs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.codeBox {
+  width: 48px;
+  height: 56px;
+  background: var(--input-background, #374151);
+  border: 2px solid var(--border-color, #4b5563);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color, #ffffff);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.codeBox:focus {
+  border-color: var(--primary-color, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.codeBox.filled {
+  background: var(--primary-color, #3b82f6);
+  border-color: var(--primary-color, #3b82f6);
+}
+
+.codeBox.error {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.codeBox:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Resend section */
+.resendSection {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.resendText {
+  color: var(--text-muted, #9ca3af);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.resendButton {
+  background: none;
+  border: none;
+  color: var(--primary-color, #3b82f6);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.resendButton:hover:not(:disabled) {
+  color: var(--primary-hover, #2563eb);
+}
+
+.resendButton:disabled {
+  color: var(--text-muted, #9ca3af);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* Links and navigation */
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.link {
+  color: var(--primary-color, #3b82f6);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--primary-hover, #2563eb);
+  text-decoration: underline;
+}
+
+.divider {
+  color: var(--text-muted, #9ca3af);
+  font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .authForm {
+    padding: 0 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .codeInputs {
+    gap: 6px;
+  }
+  
+  .codeBox {
+    width: 40px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .codeBox {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .codeInputs {
+    gap: 8px;
+  }
+}

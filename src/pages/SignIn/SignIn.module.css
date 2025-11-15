@@ -1,0 +1,220 @@
+/* Auth form styles - designed to work with AuthLayout */
+.authForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Form styles */
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inputGroup {
+  margin-bottom: 24px;
+}
+
+.inputGroup:last-of-type {
+  margin-bottom: 32px;
+}
+
+.errorMessage {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #fecaca;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.actions {
+  margin-bottom: 24px;
+}
+
+/* Form preview styles for backward compatibility */
+.formContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.inputPlaceholder {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.buttonPlaceholder {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.buttonPlaceholder:hover {
+  opacity: 1;
+}
+
+/* Navigation links */
+.links {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.link:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.divider {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Loading state */
+.form:has(.inputGroup input:disabled) .inputGroup {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+/* Focus management */
+.form:focus-within .errorMessage {
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .inputGroup {
+    margin-bottom: 20px;
+  }
+
+  .inputGroup:last-of-type {
+    margin-bottom: 24px;
+  }
+
+  .actions {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .inputGroup {
+    margin-bottom: 16px;
+  }
+
+  .inputGroup:last-of-type {
+    margin-bottom: 20px;
+  }
+
+  .errorMessage {
+    padding: 10px 14px;
+    font-size: 0.8rem;
+  }
+
+  .formPreview {
+    gap: 12px;
+  }
+
+  .inputPlaceholder,
+  .buttonPlaceholder {
+    padding: 10px 14px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .errorMessage {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #fef2f2;
+  }
+
+  .link {
+    color: white;
+  }
+
+  .divider {
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .buttonPlaceholder,
+  .form:has(.inputGroup input:disabled) .inputGroup {
+    transition: none;
+  }
+}
