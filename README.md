@@ -579,7 +579,7 @@ This project is licensed under the MIT License.
 
 ## Related Projects
 
-- [ExpenseTracker Backend](https://github.com/igorg9810/expense-tracker-backend) - Node.js/Express API
+- [ExpenseTracker Backend](https://github.com/igorg9810/expense-tracker) - Node.js/Express API
 
 ## Support
 
