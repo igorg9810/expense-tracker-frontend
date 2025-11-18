@@ -354,9 +354,7 @@ export const LabelVariations: Story = {
         <h4 style={{ marginBottom: '1rem' }}>Inline Layout</h4>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ minWidth: '100px' }}>
-            <InputLabel htmlFor="inline-input">
-              Inline Label:
-            </InputLabel>
+            <InputLabel htmlFor="inline-input">Inline Label:</InputLabel>
           </div>
           <input
             id="inline-input"
