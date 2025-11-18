@@ -1,19 +1,19 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { fetchExpenses, reorderExpenses, validateExpenseOrder } from './expenseService';
 import type { Expense, ExpensesResponse, ReorderExpensesResponse } from './expenseService';
 import { apiClient } from '../auth/apiClient';
 
 // Mock the apiClient
-vi.mock('../auth/apiClient', () => ({
+jest.mock('../auth/apiClient', () => ({
   apiClient: {
-    get: vi.fn(),
-    patch: vi.fn(),
+    get: jest.fn(),
+    patch: jest.fn(),
   },
 }));
 
 describe('expenseService', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   describe('fetchExpenses', () => {
@@ -54,13 +54,13 @@ describe('expenseService', () => {
         },
       };
 
-      (apiClient.get as ReturnType<typeof vi.fn>).mockResolvedValue({
+      (apiClient.get as ReturnType<typeof jest.fn>).mockResolvedValue({
         data: mockResponse,
       });
 
       const result = await fetchExpenses();
 
-      expect(apiClient.get).toHaveBeenCalledWith('/expenses', {
+      expect(apiClient.get).toHaveBeenCalledWith('/api/expenses', {
         params: undefined,
       });
       expect(result).toEqual(mockResponse);
@@ -82,13 +82,13 @@ describe('expenseService', () => {
         },
       };
 
-      (apiClient.get as ReturnType<typeof vi.fn>).mockResolvedValue({
+      (apiClient.get as ReturnType<typeof jest.fn>).mockResolvedValue({
         data: mockResponse,
       });
 
       await fetchExpenses(mockParams);
 
-      expect(apiClient.get).toHaveBeenCalledWith('/expenses', {
+      expect(apiClient.get).toHaveBeenCalledWith('/api/expenses', {
         params: mockParams,
       });
     });
@@ -102,26 +102,24 @@ describe('expenseService', () => {
         },
       };
 
-      (apiClient.get as ReturnType<typeof vi.fn>).mockRejectedValue(mockError);
+      (apiClient.get as ReturnType<typeof jest.fn>).mockRejectedValue(mockError);
 
-      await expect(fetchExpenses()).rejects.toThrow(
-        'Failed to fetch expenses: Failed to fetch expenses',
-      );
+      await expect(fetchExpenses()).rejects.toThrow('Failed to fetch expenses');
     });
 
     it('should handle API errors without response data', async () => {
       const mockError = new Error('Network error');
 
-      (apiClient.get as ReturnType<typeof vi.fn>).mockRejectedValue(mockError);
+      (apiClient.get as ReturnType<typeof jest.fn>).mockRejectedValue(mockError);
 
-      await expect(fetchExpenses()).rejects.toThrow('Failed to fetch expenses: Network error');
+      await expect(fetchExpenses()).rejects.toThrow('Network error');
     });
 
     it('should handle unknown errors', async () => {
-      (apiClient.get as ReturnType<typeof vi.fn>).mockRejectedValue('Unknown error');
+      (apiClient.get as ReturnType<typeof jest.fn>).mockRejectedValue('Unknown error');
 
       await expect(fetchExpenses()).rejects.toThrow(
-        'Failed to fetch expenses: An unknown error occurred',
+        'An unexpected error occurred while fetching expenses',
       );
     });
   });
@@ -133,16 +131,18 @@ describe('expenseService', () => {
         success: true,
       };
 
-      (apiClient.patch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      (apiClient.patch as ReturnType<typeof jest.fn>).mockResolvedValue({
         data: mockResponse,
       });
 
       const result = await reorderExpenses(order);
 
       expect(apiClient.patch).toHaveBeenCalledWith(
-        '/expenses/reorder',
+        '/api/expenses/reorder',
         { order },
-        { timeout: 10000 },
+        {
+          timeout: 10000,
+        },
       );
       expect(result).toEqual(mockResponse);
     });
@@ -151,7 +151,7 @@ describe('expenseService', () => {
       const invalidOrder = [1, -2, 3];
 
       await expect(reorderExpenses(invalidOrder)).rejects.toThrow(
-        'Order must be an array of positive integers',
+        'All expense IDs must be positive integers',
       );
 
       expect(apiClient.patch).not.toHaveBeenCalled();
@@ -167,103 +167,75 @@ describe('expenseService', () => {
         },
       };
 
-      (apiClient.patch as ReturnType<typeof vi.fn>).mockRejectedValue(mockError);
+      (apiClient.patch as ReturnType<typeof jest.fn>).mockRejectedValue(mockError);
 
-      await expect(reorderExpenses(order)).rejects.toThrow(
-        'Failed to reorder expenses: Invalid expense order',
-      );
+      await expect(reorderExpenses(order)).rejects.toThrow('Invalid expense order');
     });
 
     it('should handle API errors without response data', async () => {
       const order = [1, 2, 3];
       const mockError = new Error('Network error');
 
-      (apiClient.patch as ReturnType<typeof vi.fn>).mockRejectedValue(mockError);
+      (apiClient.patch as ReturnType<typeof jest.fn>).mockRejectedValue(mockError);
 
-      await expect(reorderExpenses(order)).rejects.toThrow(
-        'Failed to reorder expenses: Network error',
-      );
+      await expect(reorderExpenses(order)).rejects.toThrow('Network error');
     });
 
     it('should handle unknown errors', async () => {
       const order = [1, 2, 3];
 
-      (apiClient.patch as ReturnType<typeof vi.fn>).mockRejectedValue('Unknown error');
+      (apiClient.patch as ReturnType<typeof jest.fn>).mockRejectedValue('Unknown error');
 
       await expect(reorderExpenses(order)).rejects.toThrow(
-        'Failed to reorder expenses: An unknown error occurred',
+        'An unexpected error occurred while reordering expenses',
       );
     });
   });
 
   describe('validateExpenseOrder', () => {
-    it('should return true for valid order array', () => {
-      expect(validateExpenseOrder([1, 2, 3])).toBe(true);
-      expect(validateExpenseOrder([5, 1, 3, 2, 4])).toBe(true);
-      expect(validateExpenseOrder([100])).toBe(true);
+    it('should return null for valid order array', () => {
+      expect(validateExpenseOrder([1, 2, 3])).toBeNull();
+      expect(validateExpenseOrder([5, 1, 3, 2, 4])).toBeNull();
+      expect(validateExpenseOrder([100])).toBeNull();
     });
 
-    it('should throw error if order is not an array', () => {
-      expect(() => validateExpenseOrder(null as unknown as number[])).toThrow(
-        'Order must be an array',
-      );
-      expect(() => validateExpenseOrder(undefined as unknown as number[])).toThrow(
-        'Order must be an array',
-      );
-      expect(() => validateExpenseOrder({} as unknown as number[])).toThrow(
-        'Order must be an array',
-      );
-      expect(() => validateExpenseOrder(123 as unknown as number[])).toThrow(
-        'Order must be an array',
-      );
+    it('should return error message if order is not an array', () => {
+      expect(validateExpenseOrder(null as unknown as number[])).toBe('Order must be an array');
+      expect(validateExpenseOrder(undefined as unknown as number[])).toBe('Order must be an array');
+      expect(validateExpenseOrder({} as unknown as number[])).toBe('Order must be an array');
+      expect(validateExpenseOrder(123 as unknown as number[])).toBe('Order must be an array');
     });
 
-    it('should throw error if order array is empty', () => {
-      expect(() => validateExpenseOrder([])).toThrow('Order array cannot be empty');
+    it('should return error message if order array is empty', () => {
+      expect(validateExpenseOrder([])).toBe('Order array cannot be empty');
     });
 
-    it('should throw error if order contains non-positive numbers', () => {
-      expect(() => validateExpenseOrder([1, 0, 3])).toThrow(
-        'Order must be an array of positive integers',
-      );
-      expect(() => validateExpenseOrder([1, -2, 3])).toThrow(
-        'Order must be an array of positive integers',
-      );
-      expect(() => validateExpenseOrder([-1])).toThrow(
-        'Order must be an array of positive integers',
-      );
+    it('should return error message if order contains non-positive numbers', () => {
+      expect(validateExpenseOrder([1, 0, 3])).toBe('All expense IDs must be positive integers');
+      expect(validateExpenseOrder([1, -2, 3])).toBe('All expense IDs must be positive integers');
+      expect(validateExpenseOrder([-1])).toBe('All expense IDs must be positive integers');
     });
 
-    it('should throw error if order contains non-integers', () => {
-      expect(() => validateExpenseOrder([1, 2.5, 3])).toThrow(
-        'Order must be an array of positive integers',
-      );
-      expect(() => validateExpenseOrder([1, 2, 3.14])).toThrow(
-        'Order must be an array of positive integers',
-      );
+    it('should return error message if order contains non-integers', () => {
+      expect(validateExpenseOrder([1, 2.5, 3])).toBe('All expense IDs must be positive integers');
+      expect(validateExpenseOrder([1, 2, 3.14])).toBe('All expense IDs must be positive integers');
     });
 
-    it('should throw error if order contains duplicate values', () => {
-      expect(() => validateExpenseOrder([1, 2, 2, 3])).toThrow(
-        'Order array cannot contain duplicate values',
-      );
-      expect(() => validateExpenseOrder([5, 3, 5])).toThrow(
-        'Order array cannot contain duplicate values',
-      );
-      expect(() => validateExpenseOrder([1, 1])).toThrow(
-        'Order array cannot contain duplicate values',
-      );
+    it('should return error message if order contains duplicate values', () => {
+      expect(validateExpenseOrder([1, 2, 2, 3])).toBe('Order array contains duplicate IDs');
+      expect(validateExpenseOrder([5, 3, 5])).toBe('Order array contains duplicate IDs');
+      expect(validateExpenseOrder([1, 1])).toBe('Order array contains duplicate IDs');
     });
 
-    it('should throw error if order contains non-number values', () => {
-      expect(() => validateExpenseOrder([1, '2' as unknown as number, 3])).toThrow(
-        'Order must be an array of positive integers',
+    it('should return error message if order contains non-number values', () => {
+      expect(validateExpenseOrder([1, '2' as unknown as number, 3])).toBe(
+        'All expense IDs must be positive integers',
       );
-      expect(() => validateExpenseOrder([1, null as unknown as number, 3])).toThrow(
-        'Order must be an array of positive integers',
+      expect(validateExpenseOrder([1, null as unknown as number, 3])).toBe(
+        'All expense IDs must be positive integers',
       );
-      expect(() => validateExpenseOrder([1, undefined as unknown as number, 3])).toThrow(
-        'Order must be an array of positive integers',
+      expect(validateExpenseOrder([1, undefined as unknown as number, 3])).toBe(
+        'All expense IDs must be positive integers',
       );
     });
   });

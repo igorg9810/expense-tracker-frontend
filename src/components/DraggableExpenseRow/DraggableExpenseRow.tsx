@@ -149,4 +149,6 @@ const DraggableExpenseRow: React.FC<DraggableExpenseRowProps> = ({
   );
 };
 
-export default DraggableExpenseRow;
+DraggableExpenseRow.displayName = 'DraggableExpenseRow';
+
+export default React.memo(DraggableExpenseRow);

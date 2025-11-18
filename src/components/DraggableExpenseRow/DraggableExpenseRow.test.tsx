@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it } from '@jest/globals';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import DraggableExpenseRow from './DraggableExpenseRow';
 import type { Expense } from '../../utils/api/expenseService';
@@ -19,15 +19,15 @@ describe('DraggableExpenseRow', () => {
   };
 
   const mockHandlers = {
-    onDragStart: vi.fn(),
-    onDragEnd: vi.fn(),
-    onDragOver: vi.fn(),
-    onDragLeave: vi.fn(),
-    onDrop: vi.fn(),
+    onDragStart: jest.fn(),
+    onDragEnd: jest.fn(),
+    onDragOver: jest.fn(),
+    onDragLeave: jest.fn(),
+    onDrop: jest.fn(),
   };
 
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should render expense data correctly', () => {
@@ -44,7 +44,7 @@ describe('DraggableExpenseRow', () => {
     expect(screen.getByText('Office Supplies')).toBeInTheDocument();
     expect(screen.getByText('$150.50')).toBeInTheDocument();
     expect(screen.getByText('Office')).toBeInTheDocument();
-    expect(screen.getByText('1/15/2024')).toBeInTheDocument();
+    expect(screen.getByText('Jan 15, 2024')).toBeInTheDocument();
   });
 
   it('should display drag handle', () => {
@@ -135,8 +135,12 @@ describe('DraggableExpenseRow', () => {
       />,
     );
 
-    const row = screen.getByTestId('expense-row-0');
-    row.dispatchEvent(new Event('dragstart', { bubbles: true }));
+    const row = screen.getByTestId('expense-row-1');
+    const dataTransfer = {
+      effectAllowed: '',
+      setData: jest.fn(),
+    };
+    fireEvent.dragStart(row, { dataTransfer });
 
     expect(mockHandlers.onDragStart).toHaveBeenCalledWith(0);
   });
@@ -152,7 +156,7 @@ describe('DraggableExpenseRow', () => {
       />,
     );
 
-    const row = screen.getByTestId('expense-row-0');
+    const row = screen.getByTestId('expense-row-1');
     row.dispatchEvent(new Event('dragend', { bubbles: true }));
 
     expect(mockHandlers.onDragEnd).toHaveBeenCalled();
@@ -169,8 +173,11 @@ describe('DraggableExpenseRow', () => {
       />,
     );
 
-    const row = screen.getByTestId('expense-row-0');
-    row.dispatchEvent(new Event('dragover', { bubbles: true }));
+    const row = screen.getByTestId('expense-row-1');
+    const dataTransfer = {
+      dropEffect: '',
+    };
+    fireEvent.dragOver(row, { dataTransfer });
 
     expect(mockHandlers.onDragOver).toHaveBeenCalledWith(0);
   });
@@ -186,7 +193,7 @@ describe('DraggableExpenseRow', () => {
       />,
     );
 
-    const row = screen.getByTestId('expense-row-0');
+    const row = screen.getByTestId('expense-row-1');
     row.dispatchEvent(new Event('dragleave', { bubbles: true }));
 
     expect(mockHandlers.onDragLeave).toHaveBeenCalled();
@@ -203,7 +210,7 @@ describe('DraggableExpenseRow', () => {
       />,
     );
 
-    const row = screen.getByTestId('expense-row-0');
+    const row = screen.getByTestId('expense-row-1');
     row.dispatchEvent(new Event('drop', { bubbles: true }));
 
     expect(mockHandlers.onDrop).toHaveBeenCalledWith(0);
@@ -255,7 +262,7 @@ describe('DraggableExpenseRow', () => {
     );
 
     // Date should be formatted as M/D/YYYY
-    expect(screen.getByText('1/15/2024')).toBeInTheDocument();
+    expect(screen.getByText('Jan 15, 2024')).toBeInTheDocument();
   });
 
   it('should handle long expense names', () => {
@@ -309,7 +316,7 @@ describe('DraggableExpenseRow', () => {
       />,
     );
 
-    const row = screen.getByTestId('expense-row-0');
+    const row = screen.getByTestId('expense-row-1');
     expect(row).toHaveAttribute('draggable', 'true');
   });
 
@@ -328,7 +335,7 @@ describe('DraggableExpenseRow', () => {
       </table>,
     );
 
-    expect(screen.getByTestId('expense-row-0')).toBeInTheDocument();
+    expect(screen.getByTestId('expense-row-1')).toBeInTheDocument();
 
     rerender(
       <table>
@@ -344,6 +351,6 @@ describe('DraggableExpenseRow', () => {
       </table>,
     );
 
-    expect(screen.getByTestId('expense-row-1')).toBeInTheDocument();
+    expect(screen.getByTestId('expense-row-2')).toBeInTheDocument();
   });
 });

@@ -1,0 +1,142 @@
+.errorBoundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.errorContainer {
+  background: white;
+  border-radius: 16px;
+  padding: 48px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.errorTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 16px 0;
+}
+
+.errorMessage {
+  font-size: 18px;
+  color: #4a5568;
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+}
+
+.errorActions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.resetButton,
+.reloadButton {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton {
+  background: #667eea;
+  color: white;
+}
+
+.resetButton:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.reloadButton {
+  background: #edf2f7;
+  color: #2d3748;
+}
+
+.reloadButton:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.errorDetails {
+  margin-top: 24px;
+  text-align: left;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.errorSummary {
+  font-weight: 600;
+  color: #2d3748;
+  cursor: pointer;
+  user-select: none;
+  padding: 8px;
+}
+
+.errorSummary:hover {
+  color: #667eea;
+}
+
+.errorContent {
+  margin-top: 16px;
+}
+
+.errorContent h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 16px 0 8px 0;
+}
+
+.errorContent h3:first-child {
+  margin-top: 0;
+}
+
+.errorStack {
+  background: #1a202c;
+  color: #f7fafc;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .errorContainer {
+    padding: 32px 24px;
+  }
+
+  .errorTitle {
+    font-size: 24px;
+  }
+
+  .errorMessage {
+    font-size: 16px;
+  }
+
+  .errorActions {
+    flex-direction: column;
+  }
+
+  .resetButton,
+  .reloadButton {
+    width: 100%;
+  }
+}

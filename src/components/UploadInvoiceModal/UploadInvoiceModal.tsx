@@ -3,6 +3,7 @@ import Modal from '../Modal';
 import FileUpload from '../FileUpload';
 import Button from '../Button';
 import { uploadInvoice, type InvoiceData } from '../../utils/api';
+import { addSentryBreadcrumb, captureException } from '../../sentry';
 import styles from './UploadInvoiceModal.module.css';
 
 export interface UploadInvoiceModalProps {
@@ -65,9 +66,21 @@ const UploadInvoiceModal: React.FC<UploadInvoiceModalProps> = ({ isOpen, onClose
     setIsUploading(true);
     setError('');
 
+    addSentryBreadcrumb('Starting invoice upload', {
+      category: 'user-action',
+      level: 'info',
+      data: { fileName: selectedFile.name, fileSize: selectedFile.size },
+    });
+
     try {
       // Upload and analyze invoice
       const invoiceData = await uploadInvoice(selectedFile);
+
+      addSentryBreadcrumb('Invoice upload successful', {
+        category: 'data',
+        level: 'info',
+        data: { fileName: selectedFile.name },
+      });
 
       // Show success message
       setSuccessMessage('Invoice analyzed successfully!');
@@ -84,6 +97,13 @@ const UploadInvoiceModal: React.FC<UploadInvoiceModalProps> = ({ isOpen, onClose
       const errorMessage = err instanceof Error ? err.message : 'Failed to upload invoice';
       setError(errorMessage);
       setIsUploading(false);
+      captureException(err as Error, {
+        context: {
+          operation: 'uploadInvoice',
+          fileName: selectedFile.name,
+          fileSize: selectedFile.size,
+        },
+      });
     }
   };
 
@@ -165,4 +185,6 @@ const UploadInvoiceModal: React.FC<UploadInvoiceModalProps> = ({ isOpen, onClose
   );
 };
 
-export default UploadInvoiceModal;
+UploadInvoiceModal.displayName = 'UploadInvoiceModal';
+
+export default React.memo(UploadInvoiceModal);

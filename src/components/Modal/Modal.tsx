@@ -153,4 +153,6 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Modal;
+Modal.displayName = 'Modal';
+
+export default React.memo(Modal);

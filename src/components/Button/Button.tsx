@@ -180,4 +180,6 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+Button.displayName = 'Button';
+
+export default React.memo(Button);

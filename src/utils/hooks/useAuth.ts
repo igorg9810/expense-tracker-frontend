@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { tokenManager, authEvents, authUtils, authApiClient, type AuthEvent } from '../auth';
+import { setSentryUser, clearSentryUser, addSentryBreadcrumb } from '../../sentry';
 
 export interface User {
   userId: string;
@@ -49,6 +50,16 @@ export const useAuth = (): AuthContextValue => {
     setIsAuthenticated(authenticated);
     setUser(currentUser);
     setIsLoading(false);
+
+    // Update Sentry context
+    if (authenticated && currentUser) {
+      setSentryUser({
+        id: currentUser.userId,
+        email: currentUser.email,
+      });
+    } else {
+      clearSentryUser();
+    }
   }, []);
 
   /**
@@ -79,6 +90,7 @@ export const useAuth = (): AuthContextValue => {
     (tokens: { accessToken: string }) => {
       authUtils.login(tokens);
       updateAuthState();
+      addSentryBreadcrumb('User logged in', { category: 'auth', level: 'info' });
     },
     [updateAuthState],
   );
@@ -88,6 +100,7 @@ export const useAuth = (): AuthContextValue => {
    */
   const logout = useCallback(async () => {
     setIsLoading(true);
+    addSentryBreadcrumb('User logged out', { category: 'auth', level: 'info' });
     try {
       await authApiClient.logout();
     } catch (error) {
@@ -103,6 +116,10 @@ export const useAuth = (): AuthContextValue => {
    */
   const logoutAll = useCallback(async () => {
     setIsLoading(true);
+    addSentryBreadcrumb('User logged out from all devices', {
+      category: 'auth',
+      level: 'info',
+    });
     try {
       await authApiClient.logoutAll();
     } catch (error) {

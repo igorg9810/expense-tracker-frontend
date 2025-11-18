@@ -6,6 +6,7 @@ import UploadInvoiceModal from '../../components/UploadInvoiceModal';
 import DraggableExpenseRow from '../../components/DraggableExpenseRow';
 import type { InvoiceData, Expense } from '../../utils/api';
 import { fetchExpenses, reorderExpenses } from '../../utils/api';
+import { addSentryBreadcrumb, captureException } from '../../sentry';
 import styles from './ExpenseTable.module.css';
 
 /**
@@ -25,29 +26,38 @@ const ExpenseTable: React.FC = () => {
   const [isReordering, setIsReordering] = useState(false);
 
   /**
-   * Fetch expenses on component mount
-   */
-  useEffect(() => {
-    loadExpenses();
-  }, []);
-
-  /**
    * Load expenses from API
    */
-  const loadExpenses = async () => {
+  const loadExpenses = useCallback(async () => {
     try {
       setIsLoadingExpenses(true);
       setError(null);
+      addSentryBreadcrumb('Loading expenses', { category: 'data', level: 'info' });
       const response = await fetchExpenses();
       setExpenses(response.data);
+      addSentryBreadcrumb('Expenses loaded successfully', {
+        category: 'data',
+        level: 'info',
+        data: { count: response.data.length },
+      });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to load expenses';
       setError(errorMessage);
       console.error('Failed to load expenses:', err);
+      captureException(err as Error, {
+        context: { operation: 'loadExpenses' },
+      });
     } finally {
       setIsLoadingExpenses(false);
     }
-  };
+  }, []);
+
+  /**
+   * Fetch expenses on component mount
+   */
+  useEffect(() => {
+    loadExpenses();
+  }, [loadExpenses]);
 
   /**
    * Handle drag start
@@ -103,14 +113,31 @@ const ExpenseTable: React.FC = () => {
         // Get the new order of IDs
         const newOrder = newExpenses.map((expense) => expense.id);
 
+        addSentryBreadcrumb('Reordering expenses', {
+          category: 'user-action',
+          level: 'info',
+          data: { from: draggedIndex, to: dropIndex, count: newOrder.length },
+        });
+
         // Persist to backend
         await reorderExpenses(newOrder);
 
         console.log('Expenses reordered successfully');
+        addSentryBreadcrumb('Expenses reordered successfully', {
+          category: 'data',
+          level: 'info',
+        });
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to reorder expenses';
         setError(errorMessage);
         console.error('Failed to reorder expenses:', err);
+        captureException(err as Error, {
+          context: {
+            operation: 'reorderExpenses',
+            from: draggedIndex,
+            to: dropIndex,
+          },
+        });
 
         // Reload expenses to restore correct order
         await loadExpenses();
@@ -120,23 +147,31 @@ const ExpenseTable: React.FC = () => {
         setDragOverIndex(null);
       }
     },
-    [draggedIndex, expenses],
+    [draggedIndex, expenses, loadExpenses],
   );
 
-  const handleLogout = async () => {
+  /**
+   * Handle logout
+   */
+  const handleLogout = useCallback(async () => {
     try {
       await logout();
     } catch (error) {
       console.error('Logout failed:', error);
     }
-  };
+  }, [logout]);
 
   /**
    * Handle invoice upload success
    * Pre-fill expense form with invoice data
    */
-  const handleInvoiceSuccess = (data: InvoiceData) => {
+  const handleInvoiceSuccess = useCallback((data: InvoiceData) => {
     console.log('Invoice data received:', data);
+    addSentryBreadcrumb('Invoice analyzed successfully', {
+      category: 'user-action',
+      level: 'info',
+      data: { name: data.name, amount: data.amount, currency: data.currency },
+    });
     setIsUploadModalOpen(false);
 
     // TODO: Open expense form and pre-fill with invoice data
@@ -144,7 +179,21 @@ const ExpenseTable: React.FC = () => {
     alert(
       `Invoice analyzed!\nName: ${data.name}\nAmount: ${data.amount} ${data.currency || 'USD'}\nDate: ${data.date}`,
     );
-  };
+  }, []);
+
+  /**
+   * Handle opening upload modal
+   */
+  const handleOpenUploadModal = useCallback(() => {
+    setIsUploadModalOpen(true);
+  }, []);
+
+  /**
+   * Handle closing upload modal
+   */
+  const handleCloseUploadModal = useCallback(() => {
+    setIsUploadModalOpen(false);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -173,7 +222,7 @@ const ExpenseTable: React.FC = () => {
           <div className={styles.buttonGroup}>
             <Button
               variant="outlined"
-              onClick={() => setIsUploadModalOpen(true)}
+              onClick={handleOpenUploadModal}
               className={styles.uploadButton}
             >
               📄 Upload Invoice
@@ -262,7 +311,7 @@ const ExpenseTable: React.FC = () => {
       {/* Upload Invoice Modal */}
       <UploadInvoiceModal
         isOpen={isUploadModalOpen}
-        onClose={() => setIsUploadModalOpen(false)}
+        onClose={handleCloseUploadModal}
         onSuccess={handleInvoiceSuccess}
       />
     </div>

@@ -2,6 +2,17 @@
 import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'util';
 
+// Mock Sentry module before any other imports
+jest.mock('./sentry', () => ({
+  initSentry: jest.fn(),
+  setSentryUser: jest.fn(),
+  clearSentryUser: jest.fn(),
+  addSentryContext: jest.fn(),
+  addSentryBreadcrumb: jest.fn(),
+  captureException: jest.fn(),
+  captureMessage: jest.fn(),
+}));
+
 // Polyfill for TextEncoder/TextDecoder (needed for React Router)
 if (typeof global.TextEncoder === 'undefined') {
   global.TextEncoder = TextEncoder as never;

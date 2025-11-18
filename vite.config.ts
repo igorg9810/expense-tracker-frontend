@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 
 // https://vite.dev/config/
 import path from 'node:path';
@@ -21,7 +22,24 @@ export default defineConfig({
         exportType: 'default',
       },
     }),
+    // Put the Sentry plugin after all other plugins
+    sentryVitePlugin({
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      telemetry: false,
+      sourcemaps: {
+        assets: './dist/**',
+        filesToDeleteAfterUpload: './dist/**/*.map',
+      },
+      release: {
+        name: process.env.VITE_APP_VERSION,
+      },
+    }),
   ],
+  build: {
+    sourcemap: true,
+  },
   test: {
     projects: [
       {

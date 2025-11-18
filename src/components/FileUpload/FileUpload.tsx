@@ -247,4 +247,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
   );
 };
 
-export default FileUpload;
+FileUpload.displayName = 'FileUpload';
+
+export default React.memo(FileUpload);
