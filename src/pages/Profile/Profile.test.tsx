@@ -190,7 +190,8 @@ describe('Profile', () => {
     renderProfile();
 
     await waitFor(() => {
-      expect(screen.getAllByText('January 1, 2023 at 01:00 AM')).toHaveLength(2); // Account Created and Last Updated
+      // Check for date components (timezone-independent)
+      expect(screen.getAllByText(/January 1, 2023/i)).toHaveLength(2); // Account Created and Last Updated
       expect(screen.getAllByText('john@example.com')).toHaveLength(2); // Header and profile content
     });
   });
