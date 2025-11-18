@@ -311,10 +311,8 @@
 /* Clear button for search inputs */
 .input[type='search']::-webkit-search-cancel-button {
   appearance: none;
-  appearance: none;
 }
 
 .input[type='search']::-webkit-search-decoration {
-  appearance: none;
   appearance: none;
 }

@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
   background-color: var(--background-color, #1f2937);
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
   padding: 20px;
   font-family: system-ui, -apple-system, sans-serif;
 }
@@ -38,7 +38,7 @@
 .title {
   font-size: 2.5rem;
   font-weight: bold;
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
   color: var(--primary-color, #3b82f6);
 }
 
@@ -54,7 +54,7 @@
   background: var(--card-background, #374151);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
 }
 
 .tableHeader {
@@ -113,9 +113,9 @@
 }
 
 .placeholder h3 {
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   font-size: 1.5rem;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
 }
 
 .placeholder p {
@@ -127,7 +127,7 @@
 .featureList {
   text-align: left;
   display: inline-block;
-  margin: 20px 0 0 0;
+  margin: 20px 0 0;
   padding: 0;
   color: var(--text-muted, #d1d5db);
 }
@@ -157,7 +157,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .container {
     padding: 16px;
   }
@@ -269,7 +269,7 @@
   padding: 16px 12px;
   text-align: left;
   font-weight: 600;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
   border-bottom: 2px solid var(--border-color, #4b5563);
   white-space: nowrap;
 }
@@ -392,9 +392,9 @@
 }
 
 .placeholder h3 {
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   font-size: 1.5rem;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
 }
 
 .placeholder p {
@@ -406,11 +406,8 @@
 /* Reordering Overlay */
 .reorderingOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -441,12 +438,12 @@
 
 @media (prefers-contrast: high) {
   .table {
-    border: 2px solid currentColor;
+    border: 2px solid currentcolor;
   }
 
   .table th,
   .table td {
-    border: 1px solid currentColor;
+    border: 1px solid currentcolor;
   }
 
   .errorMessage {

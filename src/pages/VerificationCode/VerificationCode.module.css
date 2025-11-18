@@ -13,8 +13,8 @@
 .title {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--text-color, #ffffff);
-  margin: 0 0 8px 0;
+  color: var(--text-color, #fff);
+  margin: 0 0 8px;
 }
 
 .subtitle {
@@ -38,8 +38,8 @@
 }
 
 .errorMessage {
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background-color: rgb(239 68 68 / 10%);
+  border: 1px solid rgb(239 68 68 / 30%);
   color: #f87171;
   padding: 12px;
   border-radius: 8px;
@@ -76,7 +76,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
@@ -86,7 +86,7 @@
 
 .codeBox:focus {
   border-color: var(--primary-color, #3b82f6);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 10%);
 }
 
 .codeBox.filled {
@@ -96,7 +96,7 @@
 
 .codeBox.error {
   border-color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
+  background: rgb(239 68 68 / 10%);
 }
 
 .codeBox:disabled {
@@ -163,7 +163,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .authForm {
     padding: 0 16px;
   }

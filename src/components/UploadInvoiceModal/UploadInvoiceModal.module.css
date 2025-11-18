@@ -21,8 +21,8 @@
 /* Error Message */
 .errorMessage {
   padding: 12px 16px;
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background-color: rgb(239 68 68 / 10%);
+  border: 1px solid rgb(239 68 68 / 30%);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -40,13 +40,13 @@
 /* Info Box */
 .infoBox {
   padding: 16px;
-  background-color: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background-color: rgb(59 130 246 / 10%);
+  border: 1px solid rgb(59 130 246 / 30%);
   border-radius: 8px;
 }
 
 .infoBox h4 {
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--primary-color, #3b82f6);
@@ -64,7 +64,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .footer {
     flex-direction: column-reverse;
   }

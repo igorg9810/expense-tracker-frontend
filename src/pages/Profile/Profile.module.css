@@ -3,7 +3,7 @@
 .container {
   min-height: 100vh;
   background-color: var(--background-color, #1f2937);
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
   padding: 20px;
   font-family: system-ui, -apple-system, sans-serif;
 }
@@ -37,7 +37,7 @@
   font-size: 2.5rem;
   font-weight: bold;
   margin: 0;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
 }
 
 /* Content Area */
@@ -50,7 +50,7 @@
   background: var(--card-background, #374151);
   border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
 }
 
 /* Avatar Section */
@@ -88,8 +88,8 @@
 .userName {
   font-size: 1.75rem;
   font-weight: bold;
-  margin: 0 0 8px 0;
-  color: var(--text-color, #ffffff);
+  margin: 0 0 8px;
+  color: var(--text-color, #fff);
 }
 
 .userEmail {
@@ -102,8 +102,8 @@
 .sectionTitle {
   font-size: 1.25rem;
   font-weight: 600;
-  margin: 0 0 20px 0;
-  color: var(--text-color, #ffffff);
+  margin: 0 0 20px;
+  color: var(--text-color, #fff);
   border-bottom: 2px solid var(--primary-color, #3b82f6);
   padding-bottom: 8px;
 }
@@ -130,14 +130,14 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-muted, #9ca3af);
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .infoValue {
   font-size: 1rem;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
   margin: 0;
   word-break: break-all;
 }
@@ -192,12 +192,12 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-muted, #9ca3af);
-  margin: 0 0 4px 0;
+  margin: 0 0 4px;
 }
 
 .securityValue {
   font-size: 1rem;
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
   margin: 0;
 }
 
@@ -234,14 +234,14 @@
 
 .errorContainer h2 {
   font-size: 1.5rem;
-  color: var(--text-color, #ffffff);
-  margin: 0 0 16px 0;
+  color: var(--text-color, #fff);
+  margin: 0 0 16px;
 }
 
 .errorContainer p {
   font-size: 1rem;
   color: var(--text-muted, #9ca3af);
-  margin: 0 0 32px 0;
+  margin: 0 0 32px;
   line-height: 1.6;
 }
 
@@ -253,7 +253,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .container {
     padding: 16px;
   }
@@ -312,7 +312,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .container {
     padding: 12px;
   }

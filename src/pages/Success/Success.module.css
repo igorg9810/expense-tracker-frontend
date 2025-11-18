@@ -25,19 +25,19 @@
   font-size: 2.25rem;
   font-weight: bold;
   color: var(--success-color, #10b981);
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
 }
 
 .message {
-  color: var(--text-color, #ffffff);
-  margin: 0 0 8px 0;
+  color: var(--text-color, #fff);
+  margin: 0 0 8px;
   font-size: 1rem;
   font-weight: 500;
 }
 
 .email {
   color: var(--primary-color, #3b82f6);
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   font-size: 0.95rem;
 }
 
@@ -102,10 +102,10 @@
 }
 
 .tipsTitle {
-  color: var(--text-color, #ffffff);
+  color: var(--text-color, #fff);
   font-size: 1rem;
   font-weight: 600;
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
 }
 
 .tipsList {
@@ -121,7 +121,7 @@
 }
 
 /* Responsive design */
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .authForm {
     padding: 0 16px;
   }
@@ -149,7 +149,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .container {
     padding: 16px;
   }

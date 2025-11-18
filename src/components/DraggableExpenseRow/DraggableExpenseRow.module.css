@@ -1,5 +1,5 @@
 .row {
-  background-color: #ffffff;
+  background-color: #fff;
   border-bottom: 1px solid #e5e7eb;
   transition: all 0.2s ease;
   cursor: move;
@@ -89,7 +89,7 @@
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .cell {
     padding: 8px 12px;
     font-size: 13px;

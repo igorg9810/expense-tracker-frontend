@@ -13,7 +13,7 @@
   padding: 48px;
   max-width: 600px;
   width: 100%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 30%);
   text-align: center;
 }
 
@@ -21,13 +21,13 @@
   font-size: 32px;
   font-weight: 700;
   color: #1a202c;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
 }
 
 .errorMessage {
   font-size: 18px;
   color: #4a5568;
-  margin: 0 0 32px 0;
+  margin: 0 0 32px;
   line-height: 1.6;
 }
 
@@ -57,7 +57,7 @@
 .resetButton:hover {
   background: #5568d3;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgb(102 126 234 / 40%);
 }
 
 .reloadButton {
@@ -68,7 +68,7 @@
 .reloadButton:hover {
   background: #e2e8f0;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
 }
 
 .errorDetails {
@@ -99,7 +99,7 @@
   font-size: 14px;
   font-weight: 600;
   color: #2d3748;
-  margin: 16px 0 8px 0;
+  margin: 16px 0 8px;
 }
 
 .errorContent h3:first-child {
@@ -118,7 +118,7 @@
   margin: 0;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .errorContainer {
     padding: 32px 24px;
   }
