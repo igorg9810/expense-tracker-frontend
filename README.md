@@ -506,7 +506,7 @@ Perform Frontend Task 6 from the README file `expense-tracker/README.md`:
 - Work in the `expense-tracker` folder
 - Create a GitHub Action workflow for the frontend (`.github/workflows/ci.yml`)
 - Add steps for linting, formatting, unit/integration tests, building the app, and building a Docker image
-- Ensure the pipeline runs on pull requests and pushes to main
+- Ensure the pipeline runs on pull requests and pushes to master
 - After completion, provide a short report on what was done and what needs to be done manually
 
 </details>
